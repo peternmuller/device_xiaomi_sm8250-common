@@ -236,12 +236,6 @@ PRODUCT_SET_DEBUGFS_RESTRICTIONS := true
 PRODUCT_PACKAGES += \
     android.hardware.light-service.lineage
 
-# Lineage Health
-PRODUCT_PACKAGES += \
-    vendor.lineage.health-service.default
-
-$(call soong_config_set,lineage_health,charging_control_supports_bypass,false)
-
 # Media configs
 PRODUCT_PACKAGES += \
     media_codecs_c2.xml \
@@ -270,7 +264,7 @@ TARGET_SUPPORTS_OMX_SERVICE := false
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
-    $(LOCAL_PATH)/overlay-lineage
+    $(LOCAL_PATH)/overlay-yaap
 
 PRODUCT_ENFORCE_RRO_TARGETS := *
 PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += $(LOCAL_PATH)/overlay/packages/apps/CarrierConfig
@@ -283,6 +277,9 @@ PRODUCT_PACKAGES += \
     vendor_dsp_mountpoint \
     vendor_firmware_mnt_mountpoint
 
+# Platform
+TARGET_BOARD_PLATFORM := kona
+
 # Power
 PRODUCT_PACKAGES += \
     android.hardware.power-service.lineage-libperfmgr \
@@ -290,6 +287,8 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
+
+TARGET_PROVIDES_POWERHAL := true
 
 # Public libraries
 PRODUCT_COPY_FILES += \
@@ -339,17 +338,9 @@ PRODUCT_SOONG_NAMESPACES += \
 
 # Telephony
 PRODUCT_PACKAGES += \
-    ims-ext-common \
-    ims_ext_common.xml \
-    qti-telephony-hidl-wrapper \
-    qti_telephony_hidl_wrapper.xml \
-    qti-telephony-utils \
-    qti_telephony_utils.xml \
-    telephony-ext \
     xiaomi-telephony-stub
 
 PRODUCT_BOOT_JARS += \
-    telephony-ext \
     xiaomi-telephony-stub
 
 # Thermal
